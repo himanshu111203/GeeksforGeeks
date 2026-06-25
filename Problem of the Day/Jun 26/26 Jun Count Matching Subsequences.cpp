@@ -1,3 +1,32 @@
+//Top Down 
+class Solution {
+  public:
+    int dp[1001][1001];
+    const int mod=1e9+7;
+    int count(int m,int n,string &s1, string &s2){
+        if(n==0)
+        return 1;
+        if(m==0)
+        return 0;
+        if(dp[m][n]!=-1)
+        return dp[m][n];
+        int ans;
+        if(s1[m-1]!=s2[n-1])
+        ans=count(m-1,n,s1,s2);
+        else
+        ans=(count(m-1,n,s1,s2)+count(m-1,n-1,s1,s2))%mod;
+        return dp[m][n]=ans;
+    }
+    int countWays(string &s1, string &s2) {
+        // code here
+        int m=s1.size(),n=s2.size();
+        memset(dp,-1,sizeof(dp));
+        return count(m,n,s1,s2);
+    }
+};
+
+
+//Bottom Up
 class Solution {
   public:
     int countWays(string &s1, string &s2) {
