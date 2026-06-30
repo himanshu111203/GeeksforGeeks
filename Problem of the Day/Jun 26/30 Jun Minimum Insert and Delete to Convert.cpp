@@ -14,11 +14,23 @@ class Solution {
         int k=seq.size();
         vector<int>lis;
         for(int x:seq) {
-            auto it=lower_bound(lis.begin(),lis.end(),x);
-            if(it==lis.end())
+            if(lis.empty() || x>lis[lis.size()-1])
             lis.push_back(x);
-            else
-            *it=x;
+            else{
+                int ind=-1;
+                int start=0,end=lis.size()-1,mid;
+                while(start<=end){
+                    mid=start+(end-start)/2;
+                    if(lis[mid]>=x){
+                        ind=mid;
+                        end=mid-1;
+                    }else
+                    start=mid+1;
+                }
+                if(ind!=-1)
+                lis[ind]=x;
+            }
+            
         }
         int len=lis.size();
         return (n-len)+(m-len);
